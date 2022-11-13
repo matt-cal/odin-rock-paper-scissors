@@ -1,4 +1,4 @@
-function getComputerChoice(){
+function getComputerChoice() {
     /*
     randomly returns either "Rock", "Paper", or "Scissors"
     */
@@ -8,7 +8,7 @@ function getComputerChoice(){
         2: "Scissors"
     };
     // random int between 0 and 2 inclusive
-    choice = Math.floor(Math.random() * 3);
+    let choice = Math.floor(Math.random() * 3);
     return dict[choice];
 }
 
@@ -35,14 +35,36 @@ function checkWin(playerSelection, computerSelection) {
 
 function playRound(playerSelection, computerSelection) {
     /*
-    returns string describing result of a round based on player and computer selections
+    returns array where first element is string representing the winner
+    second element is string describing result of a round based on player and computer selections
     */
     playerSelection = capitalize(playerSelection);
     if (playerSelection == computerSelection) {
-        return `Tie! You both picked ${playerSelection}!`;
+        return ["tie", `Tie! You both picked ${playerSelection}!`];
     } else if (checkWin(playerSelection, computerSelection)){
-        return `You Win! ${playerSelection} beats ${computerSelection}`;
+        return ["player", `You Win! ${playerSelection} beats ${computerSelection}`];
     } else {
-        return `You Lose! ${computerSelection} beats ${playerSelection}`;
+        return ["computer", `You Lose! ${computerSelection} beats ${playerSelection}`];
     }
 }
+
+function game() {
+    let playerScore = 0;
+    let computerScore  = 0;
+    for (let i = 0; i < 5; i++) {
+        playerSelection = prompt("Choose Rock, Paper, or Scissors: ");
+        let round = playRound(playerSelection, getComputerChoice());
+        let winner = round[0];
+        let phrase = round[1];
+        if (winner == "player") {
+            playerScore++;
+        } else if (winner == "computer") {
+            computerScore++;
+        }
+        console.log(phrase);
+    }
+    console.log(`Final Score:
+    Player: ${playerScore}
+    Computer: ${computerScore}`);
+}
+
