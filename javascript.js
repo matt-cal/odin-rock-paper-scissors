@@ -49,6 +49,12 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+    /*
+    simulates 5 rounds of game
+    takes input fpr each round
+    prints results to console
+    returns nothing
+    */
     let playerScore = 0;
     let computerScore  = 0;
     for (let i = 0; i < 5; i++) {
