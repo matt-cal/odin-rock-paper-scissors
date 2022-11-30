@@ -34,6 +34,9 @@ function checkWin(playerSelection, computerSelection) {
 }
 
 const result = document.querySelector('.results');
+const scoreDiv = document.querySelector('.score');
+let score = [0, 0];
+scoreDiv.textContent = `${score[0]} : ${score[1]}`;
 function playRound(playerSelection, computerSelection) {
     /*
     returns array where first element is string representing the winner
@@ -45,11 +48,27 @@ function playRound(playerSelection, computerSelection) {
         return ["tie", `Tie! You both picked ${playerSelection}!`];
     } else if (checkWin(playerSelection, computerSelection)){
         result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+        updateScore(0);
         return ["player", `You Win! ${playerSelection} beats ${computerSelection}`];
     } else {
         result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        updateScore(1);
         return ["computer", `You Lose! ${computerSelection} beats ${playerSelection}`];
     }
+}
+
+function updateScore(winner) {
+    /*
+    winner: 0 for player, 1 for computer
+    score: [playerScore, computerScore]
+    will reset score once score of 5 is reached
+    */
+   score[winner] +=1;
+   scoreDiv.textContent = `${score[0]} : ${score[1]}`;
+   if (score[winner] == 5) {
+    score = [0, 0];
+   }
+   return score;
 }
 
 function game() {
