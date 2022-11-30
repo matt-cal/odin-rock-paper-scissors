@@ -33,6 +33,7 @@ function checkWin(playerSelection, computerSelection) {
     return false;
 }
 
+const result = document.querySelector('.results');
 function playRound(playerSelection, computerSelection) {
     /*
     returns array where first element is string representing the winner
@@ -40,10 +41,13 @@ function playRound(playerSelection, computerSelection) {
     */
     playerSelection = capitalize(playerSelection);
     if (playerSelection == computerSelection) {
+        result.textContent = `Tie! You both picked ${playerSelection}!`;
         return ["tie", `Tie! You both picked ${playerSelection}!`];
     } else if (checkWin(playerSelection, computerSelection)){
+        result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
         return ["player", `You Win! ${playerSelection} beats ${computerSelection}`];
     } else {
+        result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
         return ["computer", `You Lose! ${computerSelection} beats ${playerSelection}`];
     }
 }
@@ -57,7 +61,9 @@ function game() {
     */
     let playerScore = 0;
     let computerScore  = 0;
+
     for (let i = 0; i < 5; i++) {
+    //while (true) {
         playerSelection = prompt("Choose Rock, Paper, or Scissors: ");
         let round = playRound(playerSelection, getComputerChoice());
         let winner = round[0];
@@ -74,3 +80,9 @@ function game() {
     Computer: ${computerScore}`);
 }
 
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        playRound(button.id, getComputerChoice());
+    })
+});
